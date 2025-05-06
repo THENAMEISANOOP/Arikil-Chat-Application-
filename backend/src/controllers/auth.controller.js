@@ -107,6 +107,8 @@ export async function logout(req,res){
 
 }
 
+// onboard user
+// this function is used to update the user profile after signup
 export async function onboard(req,res){
  try {
   const userId = req.user._id;
