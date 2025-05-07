@@ -6,9 +6,14 @@ import userRoutes from './routes/user.route.js';
 import chatRoutes from './routes/chat.route.js';
 import { connectDB } from './lib/db.js';
 const PORT = process.env.PORT || 5001;
+import cors from 'cors';
 
 import cookieParser from 'cookie-parser';
 
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true, // allow frontend to access cookies
+})); // for cross-origin requests
 app.use(express.json()); 
 app.use(cookieParser()); // for parsing application/json
 
