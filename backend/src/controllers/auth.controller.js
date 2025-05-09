@@ -129,7 +129,7 @@ export async function onboard(req,res){
     nativeLanguage,
     learningLanguage,
     location,
-    isOnboarded:true,
+    isonboarded:true,
   },{new:true});
 
   if(!updateedUser){
