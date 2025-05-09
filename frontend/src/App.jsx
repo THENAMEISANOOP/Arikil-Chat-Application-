@@ -9,13 +9,18 @@ import OnboardingPage from './pages/OnboardingPage';
 import  { Toaster } from 'react-hot-toast';
 
 import PageLoader from './components/PageLoader';
+import Layout from './components/Layout';
 
 import useAuthUser from './hooks/useAuthUser';
+import { useThemeStore } from './store/useThemeStore';
 
 
 const App = () => {
   // transtack query
   const {isLoading,authUser}=useAuthUser();
+
+  
+  const { theme } = useThemeStore();
 
   const isAuthenticated=Boolean(authUser);
   const isOnboarded=authUser?.isonboarded
@@ -28,13 +33,20 @@ const App = () => {
 
   
   return (
-    <div className='h-screen' data-theme="dark" >
+    <div className='h-screen' data-theme={theme} >
       <Routes>
-        <Route path="/" element={isAuthenticated && isOnboarded ? (
-          <HomePage />
-        ):(
-          <Navigate to={!isAuthenticated ? "/login" : "/onboarding"}/>
-        ) } />
+      <Route
+          path="/"
+          element={
+            isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <HomePage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
         <Route
           path="/signup"
           element={
